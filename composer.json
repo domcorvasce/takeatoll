@@ -1,0 +1,11 @@
+{
+    "scripts": {
+        "lint": "php-cs-fixer fix src",
+        "test": "phpunit tests"
+    },
+
+    "require-dev": {
+        "phpunit/phpunit": "^9.5",
+        "friendsofphp/php-cs-fixer": "^3.8"
+    }
+}
