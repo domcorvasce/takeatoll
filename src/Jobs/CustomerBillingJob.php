@@ -9,7 +9,7 @@ use App\Models\Model;
 class CustomerBillingJob
 {
     /**
-     * Computes the amount due for
+     * Computes the amount due of customers for a certain timeframe
      *
      * @param string $startDate The start date of the billing period
      * @param string $endDate The end date of the billing period
