@@ -103,7 +103,7 @@ Back to our sample trip, this algorithm would produce 2 records:
 1. start station: Bari, end station: Bologna
 2. start station: Bologna, end station: Milan
 
-We decide to compute the cost of each pass-through ahead of time. When an `exit` signal is fired, we use the [look up](#cache) the cost associated to the segment, and store the cost along with the pass-through record. Therefore, we can compute the amount due for each customer by running a simple aggregate query:
+We decide to compute the cost of each pass-through ahead of time. When it comes time to set the reference to the end station, we use the [look up](#cache) the cost associated to the segment, and store the cost along with the pass-through record. Therefore, we can compute the amount due for each customer by running a simple aggregate query:
 
 ```sql
 SELECT customers.id, SUM(passthroughs.cost)
