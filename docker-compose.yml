@@ -1,0 +1,22 @@
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/var/www
+    depends_on:
+      - db
+    links:
+      - db
+
+  db:
+    image: postgres:14.2
+    environment:
+      - POSTGRES_USER=example
+      - POSTGRES_PASSWORD=example
+      - POSTGRES_DB=takeatoll
+    ports:
+      - "5438:5432"
+    volumes:
+      - ./data/schema.sql:/docker-entrypoint-initdb.d/create_tables.sql
