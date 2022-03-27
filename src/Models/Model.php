@@ -76,29 +76,72 @@ class Model
     public static function fake(bool $write, $attrs = []): array
     {
         $model = new static();
-        $tableName = $model->getTableName();
         $factory = array_merge($model->getFactory(), $attrs);
 
         // Write the fake record to the database
         if ($write) {
-            // Even though it is unnecessary given the nature of the data
-            // we properly sanitize the values to enter into the database
-            $placeholders = implode(', ', array_fill(0, count($factory), '?'));
-            $columns = implode(', ', array_keys($factory));
-            $values = array_values($factory);
-
-            $pdo = $model->getPDO();
-            $statement = $pdo->prepare("INSERT INTO $tableName ($columns) VALUES($placeholders)");
-            $statement->execute($values);
-
-            // NOTE: I know, this is not a good way to fetch the last inserted record
-            $statement = $pdo->prepare("SELECT * FROM $tableName ORDER BY created_at DESC LIMIT 1");
-            $statement->execute();
-
-            return $statement->fetch();
+            return static::create($factory);
         }
 
         return $factory;
+    }
+
+    /**
+     * Fetches a record based on the value of the primary key
+     *
+     * @param mixed $value Value of the primary key
+     * @return ?array
+     */
+    public static function findOne(mixed $value): ?array
+    {
+        $model = new static();
+        $primaryKey = $model->getTableKey();
+        $tableName = $model->getTableName();
+
+        $statement = $model->getPDO()->prepare("SELECT * FROM $tableName WHERE $primaryKey = ?");
+        $statement->execute([$value]);
+
+        return $statement->fetch() ?: null;
+    }
+
+
+    /**
+     * Fetches the most recent record in the table
+     *
+     * @return ?array
+     */
+    public static function fetchMostRecent(): ?array
+    {
+        // NOTE: I know, this is not a good way to fetch the last inserted record
+        $model = new static();
+        $tableName = $model->getTableName();
+
+        $statement = $model->getPDO()->prepare("SELECT * FROM $tableName ORDER BY created_at DESC LIMIT 1");
+        $statement->execute();
+
+        return $statement->fetch() ?: null;
+    }
+
+    /**
+     * Create a new model record
+     *
+     * @param array $data Value of the primary key
+     * @return array
+     */
+    public static function create(array $data): array
+    {
+        $model = new static();
+        $tableName = $model->getTableName();
+
+        $placeholders = implode(', ', array_fill(0, count($data), '?'));
+        $columns = implode(', ', array_keys($data));
+        $values = array_values($data);
+
+        $pdo = $model->getPDO();
+        $statement = $pdo->prepare("INSERT INTO $tableName ($columns) VALUES($placeholders)");
+        $statement->execute($values);
+
+        return static::fetchMostRecent();
     }
 
     /**
