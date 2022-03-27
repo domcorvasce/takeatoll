@@ -10,7 +10,7 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 use Faker\Factory;
 use Faker\Generator;
 
-abstract class Model
+class Model
 {
     // Stores an instance of the PDO class
     protected \PDO $pdo;
@@ -23,21 +23,30 @@ abstract class Model
      *
      * @return string
      */
-    abstract protected function getTableName(): string;
+    protected function getTableName(): string
+    {
+        return '';
+    }
 
     /**
      * Returns the primary key of the table
      *
      * @return string
      */
-    abstract protected function getTableKey(): string;
+    protected function getTableKey(): string
+    {
+        return 'id';
+    }
 
     /**
      * Returns a mock instance of the model
      *
      * @return array
      */
-    abstract protected function getFactory(): array;
+    protected function getFactory(): array
+    {
+        return [];
+    }
 
     public function __construct()
     {
@@ -102,8 +111,9 @@ abstract class Model
     {
         $model = new static();
         $primaryKey = $model->getTableKey();
+        $tableName = $model->getTableName();
 
-        $statement = $model->getPDO()->prepare("DELETE FROM $model->tableName WHERE $primaryKey = ?");
+        $statement = $model->getPDO()->prepare("DELETE FROM $tableName WHERE $primaryKey = ?");
         $statement->execute([$value]);
     }
 

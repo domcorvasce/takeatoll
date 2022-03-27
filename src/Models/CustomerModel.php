@@ -11,11 +11,6 @@ class CustomerModel extends Model
         return 'customers';
     }
 
-    protected function getTableKey(): string
-    {
-        return 'id';
-    }
-
     protected function getFactory(): array
     {
         return [

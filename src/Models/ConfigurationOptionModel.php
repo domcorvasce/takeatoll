@@ -15,9 +15,4 @@ class ConfigurationOptionModel extends Model
     {
         return 'name';
     }
-
-    protected function getFactory(): array
-    {
-        return [];
-    }
 }

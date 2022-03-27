@@ -10,14 +10,4 @@ class PassthroughModel extends Model
     {
         return 'passthroughs';
     }
-
-    protected function getTableKey(): string
-    {
-        return 'id';
-    }
-
-    protected function getFactory(): array
-    {
-        return [];
-    }
 }

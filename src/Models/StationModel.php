@@ -11,11 +11,6 @@ class StationModel extends Model
         return 'stations';
     }
 
-    protected function getTableKey(): string
-    {
-        return 'id';
-    }
-
     protected function getFactory(): array
     {
         return [
