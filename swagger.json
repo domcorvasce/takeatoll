@@ -1,0 +1,30 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Takeatoll API",
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/stations/{stationId}/passthroughs": {
+            "post": {
+                "description": "Register pass-through a specific motorway station",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "required": true,
+                        "name": "stationId",
+                        "description": "ID of the motorway station",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful request"
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,3 +1,4 @@
 .DS_Store
 vendor
 .php-cs-fixer.cache
+config.php
