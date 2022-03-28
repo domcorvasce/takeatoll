@@ -6,7 +6,6 @@ CREATE TABLE customers (
   password text not null,
   created_at timestamp not null default NOW(),
   updated_at timestamp null,
-  deleted_at timestamp null,
   unique(email),
   primary key(id)
 );
@@ -49,9 +48,8 @@ CREATE TABLE transponders (
   serial_number integer CHECK (serial_number > 0),
   customer_id integer not null,
   created_at timestamp not null default NOW(),
-  deleted_at timestamp null,
   primary key(serial_number),
-  foreign key(customer_id) references customers(id)
+  foreign key(customer_id) references customers(id) ON DELETE CASCADE
 );
 
 INSERT INTO
@@ -71,7 +69,6 @@ CREATE TABLE stations (
   lng float not null,
   created_at timestamp not null default NOW(),
   updated_at timestamp null,
-  deleted_at timestamp null,
   primary key(id),
   unique(lat, lng)
 );
@@ -100,10 +97,10 @@ CREATE TABLE passthroughs (
   created_at timestamp not null default NOW(),
   updated_at timestamp null,
   primary key(id),
-  foreign key(transponder_sn) references transponders(serial_number),
-  foreign key(customer_id) references customers(id),
-  foreign key(start_station_id) references stations(id),
-  foreign key(end_station_id) references stations(id)
+  foreign key(transponder_sn) references transponders(serial_number) ON DELETE CASCADE,
+  foreign key(customer_id) references customers(id) ON DELETE CASCADE,
+  foreign key(start_station_id) references stations(id) ON DELETE CASCADE,
+  foreign key(end_station_id) references stations(id) ON DELETE CASCADE
 );
 
 CREATE TABLE configuration_options (

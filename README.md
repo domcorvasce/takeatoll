@@ -87,7 +87,6 @@ This table tracks which charge system we want to use, along with storing configu
 | password   | text         |                 |            | not null                |
 | created_at | timestamp    |                 |            | not null                |
 | updated_at | timestamp    |                 |            |                         |
-| deleted_at | timestamp    |                 |            |                         |
 
 ### Transponders
 
@@ -96,7 +95,6 @@ This table tracks which charge system we want to use, along with storing configu
 | serial_number | uint      | yes             |                |             |
 | customer_id   | uint      |                 | `customers.id` | not null    |
 | created_at    | timestamp |                 |                | not null    |
-| deleted_at    | timestamp |                 |                |             |
 
 ### Stations
 
@@ -110,7 +108,6 @@ We need a **unique** constraint on the tuple `(lat, lng)`.
 | lng        | float        |                 |            | not null                |
 | created_at | timestamp    |                 |            | not null                |
 | updated_at | timestamp    |                 |            |                         |
-| deleted_at | timestamp    |                 |            |                         |
 
 ### Passthroughs
 
