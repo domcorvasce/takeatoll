@@ -46,6 +46,16 @@ class Api
     }
 
     /**
+     * Returns the instance of Slim behind this application
+     *
+     * @return App
+     */
+    public function getApp(): App
+    {
+        return $this->app;
+    }
+
+    /**
      * Starts the execution of the RESTful API
      *
      * @return void

@@ -24,6 +24,8 @@
     "require": {
         "guzzlehttp/psr7": "^2",
         "zircote/swagger-php": "^4.2",
-        "slim/slim": "^4.10"
+        "slim/slim": "^4.10",
+        "slim/psr7": "^1.5",
+        "phpspec/prophecy-phpunit": "^2.0"
     }
 }
