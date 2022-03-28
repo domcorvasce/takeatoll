@@ -43,18 +43,15 @@ class CustomerBillingJobTest extends TestCase
      */
     public function tearDown(): void
     {
-        foreach ($this->transponders as $transponder)
-        {
+        foreach ($this->transponders as $transponder) {
             TransponderModel::delete($transponder['serial_number']);
         }
 
-        foreach ($this->customers as $customer)
-        {
+        foreach ($this->customers as $customer) {
             CustomerModel::delete($customer['id']);
         }
 
-        foreach ($this->stations as $station)
-        {
+        foreach ($this->stations as $station) {
             StationModel::delete($station['id']);
         }
     }
@@ -67,8 +64,7 @@ class CustomerBillingJobTest extends TestCase
         $passthroughs = [];
         $expectedCost = 0.0;
 
-        for ($i = 0; $i < 10; $i += 1)
-        {
+        for ($i = 0; $i < 10; $i += 1) {
             $cost = $faker->randomFloat(2, 1, 10);
             $expectedCost += $cost;
             $passthroughs[] = PassthroughModel::fake(true, [
@@ -88,17 +84,15 @@ class CustomerBillingJobTest extends TestCase
         $job = new CustomerBillingJob();
         $billings = $job->execute('2022-03-21', '2022-03-28');
 
-        foreach ($billings as $billing)
-        {
+        foreach ($billings as $billing) {
             if ($billing['id'] == $this->customers[0]['id']) {
-                $this->assertSame($expectedCost, (float) $billing['amountdue']);
+                $this->assertTrue(abs($expectedCost - (float) $billing['amountdue']) < 0.1);
                 break;
             }
         }
 
         // Removes fake records
-        foreach ($passthroughs as $passthrough)
-        {
+        foreach ($passthroughs as $passthrough) {
             PassthroughModel::delete($passthrough['id']);
         }
     }
