@@ -4,7 +4,8 @@
             "App\\": "src",
             "App\\Controllers\\": "src/Controllers",
             "App\\Jobs\\": "src/Jobs",
-            "App\\Models\\": "src/Models"
+            "App\\Models\\": "src/Models",
+            "App\\Helpers\\": "src/Helpers"
         }
     },
 
