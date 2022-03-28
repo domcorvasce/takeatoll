@@ -1,5 +1,43 @@
 # takeatoll
 
+## Requirements
+
+- `Docker` and `docker-compose`
+- `make`
+
+## Installation
+
+Clone this repository:
+
+```shell
+git clone https://github.com/domcorvasce/takeatoll
+cd takeatoll
+```
+
+Set up the application's configuration file:
+
+```shell
+# Edit config.php to fit your setup
+cp config.example.php config.php
+```
+
+Start the Docker containers and install project dependencies:
+
+```shell
+docker-compose up -d
+make install
+```
+
+## Commands
+
+The `Makefile` file within the repository provides a set of commands:
+
+- `install`: installs the project dependencies using Composer
+- `lint`: runs [php-cs-fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) on the codebase
+- `test`: runs unit tests suites
+
+The commands require the Docker containers to be up and running.
+
 ## Overview
 
 > Electronic toll collection (ETC) is a wireless system to automatically collect the usage fee or toll charged to vehicles using toll roads, HOV lanes, toll bridges, and toll tunnels. It is a faster alternative which is replacing toll booths, where vehicles must stop and the driver manually pays the toll with cash or a card [...] [Read on Wikipedia](https://en.wikipedia.org/wiki/Electronic_toll_collection)
