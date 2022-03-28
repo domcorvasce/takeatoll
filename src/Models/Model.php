@@ -87,7 +87,7 @@ class Model
     }
 
     /**
-     * Fetches a record based on the value of the primary key
+     * Fetches a single record matching a certain condition on the primary key
      *
      * @param mixed $value Value of the primary key
      * @return ?array
@@ -104,6 +104,23 @@ class Model
         return $statement->fetch() ?: null;
     }
 
+    /**
+     * Fetches all the records matching a certain condition
+     *
+     * @param string $column
+     * @param mixed $value
+     * @return array
+     */
+    public static function find(string $column, mixed $value): array
+    {
+        $model = new static();
+        $tableName = $model->getTableName();
+
+        $statement = $model->getPDO()->prepare("SELECT * FROM $tableName WHERE $column = ?");
+        $statement->execute([$value]);
+
+        return $statement->fetchAll();
+    }
 
     /**
      * Fetches the most recent record in the table
